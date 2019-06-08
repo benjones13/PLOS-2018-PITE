@@ -399,13 +399,15 @@ additive_noise <- function(X,
 
     ######################################################-
     empty.out <- c(observed = NA, pval = NA, ci = c(NA, NA))
-    out = R.utils::evalWithTimeout(gibbs_test(con,
+    out <<- R.utils::withTimeout(gibbs_test(con,
                                               initial,
                                               eta,
                                               ndraw = ndraw,
                                               burnin = burnin,
                                               alpha = alpha),
-                                   timeout = 10, onTimeout = NULL)
+                                   timeout = 20, onTimeout = NULL)
+    #return(out)
+    print(out)
     if (!is.null(out)){
       ci <- drop(eta %*% con$covariance %*% eta) * out$ci
       out.all[j, ] <- c(out$observed, out$pval, ci)
@@ -458,11 +460,12 @@ additive_noise <- function(X,
       observed = sum(initial * eta)
       ############################################################################
       empty.out <- c(observed = NA, pval = NA, ci = c(NA, NA))
-      out = R.utils::evalWithTimeout(gibbs_test(con,
+      out = R.utils::withTimeout(gibbs_test(con,
                                                 initial,
                                                 eta,
                                                 alpha = alpha),
                                      timeout = 10, onTimeout = NULL)
+      print(out)
       if (!is.null(out)){
         ci <- drop(eta %*% con$covariance %*% eta) * out$ci
         out.contrast[j, ] <- c(out$observed, out$pval, ci)
@@ -531,8 +534,8 @@ while intervals is None and fail_count < 5:
     pval = family.cdf(0, observed)
     pval = 2 * min(pval, 1 - pval)
 
-    intervals=do_it(observed, alpha)[1]
-    #intervals=family.equal_tailed_interval(observed, 1 - 0.95)
+    #intervals=do_it(observed, alpha)[1]
+    intervals=family.equal_tailed_interval(observed, 1 - 0.95)
 
   except:
     pass")

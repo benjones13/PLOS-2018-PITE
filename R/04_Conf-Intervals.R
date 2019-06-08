@@ -548,7 +548,7 @@ confidence.intervals.lassoan.test <- function(dataset,
     observed = sum(initial * eta)
     ###########################################################################-
     empty.out <- c(observed = NA, pval = NA, ci = c(NA, NA))
-    out = R.utils::evalWithTimeout(gibbs_test(con,
+    out = R.utils::withTimeout(gibbs_test(con,
                                               initial,
                                               eta,
                                               ndraw = ndraw,

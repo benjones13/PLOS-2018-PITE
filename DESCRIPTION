@@ -1,7 +1,7 @@
 Package: PITE
 Type: Package
 Title: Reproducible results for Ballarini et al. (2017)
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person("Nicolas", "Ballarini", email = "nicolas.ballarini@meduniwien.ac.at", role = c("aut", "cre")),
   person("Ryan", "Tibshirani", role = "ctb"),
   person("Rob", "Tibshirani", role = "ctb"), 
